@@ -1,4 +1,5 @@
-export const CONFIG={W:960,H:540,ROUND:30,CAPACITY:25,MIN_BUILD:6,PLAYER_SPEED:250,NORMAL_RANGE:110,POWER_RANGE:220};
+export const CONFIG={W:960,H:540,ROUND:30,CAPACITY:25,MIN_BUILD:5,PLAYER_SPEED:250,NORMAL_RANGE:125,RESPAWN:5};
+export const MIN_PARTS={bicycle:5,helicopter:6,car:7,plane:8,train:10};
 export const VEHICLES={
  car:{name:'自動車',icon:'🚗',slots:{'車体':1,'タイヤ':4,'エンジン':1,'ハンドル':1,'座席':1}},
  bicycle:{name:'自転車',icon:'🚲',slots:{'フレーム':1,'タイヤ':2,'ハンドル':1,'ペダル':2,'サドル':1}},
