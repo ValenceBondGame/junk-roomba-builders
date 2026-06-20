@@ -1,31 +1,38 @@
-export const CONFIG={W:960,H:540,ROUND:30,CAPACITY:25,MIN_BUILD:5,PLAYER_SPEED:250,NORMAL_RANGE:125,RESPAWN:5};
-export const MIN_PARTS={bicycle:5,helicopter:6,car:7,plane:8,train:10};
-export const VEHICLES={
- car:{name:'自動車',icon:'🚗',slots:{'車体':1,'タイヤ':4,'エンジン':1,'ハンドル':1,'座席':1}},
- bicycle:{name:'自転車',icon:'🚲',slots:{'フレーム':1,'タイヤ':2,'ハンドル':1,'ペダル':2,'サドル':1}},
- plane:{name:'飛行機',icon:'✈️',slots:{'機体':1,'主翼':2,'エンジン':2,'尾翼':1,'操縦席':1,'車輪':3}},
- helicopter:{name:'ヘリコプター',icon:'🚁',slots:{'機体':1,'メインローター':1,'テールローター':1,'エンジン':1,'操縦席':1,'着陸脚':2}},
- train:{name:'電車',icon:'🚆',slots:{'車両ボディ':1,'台車':2,'車輪':8,'モーター':1,'運転席':1,'連結器':2}}
-};
-export const COMMON={
- 'タイヤ':['タイヤ','車輪'],'座席':['座席','サドル','操縦席','運転席'],'エンジン':['エンジン'],'モーター':['モーター','エンジン'],'ハンドル':['ハンドル'],'操縦レバー':['操縦席','運転席'],
- '車体':['機体'],'機体':['車体']
-};
-export const SUBSTITUTES={
- 'ドーナツ':['タイヤ','車輪'],'クッキー':['車輪'],'フライパン':['ハンドル'],'ソファ':['座席','サドル','操縦席','運転席'],'段ボール':['主翼','尾翼','車体','機体','車両ボディ'],
- '扇風機':['エンジン','メインローター','テールローター'],'スキー板':['着陸脚'],'竹とんぼ':['メインローター','テールローター'],'ショッピングカート':['車体','台車','車両ボディ'],
- 'スプーン':['ペダル','操縦席','運転席'],'植木鉢':['サドル','座席'],'掃除機':['エンジン'],'ゲームコントローラー':['操縦席','運転席'],'冷蔵庫':['車体','機体','車両ボディ']
-};
-export const JUNK=['長靴','バケツ','枕','傘','本','ぬいぐるみ','やかん','テレビ','トイレットペーパー','サッカーボール'];
-export const ITEM_META={
- 'タイヤ':['中','#252735','輪'],'車輪':['中','#343645','輪'],'エンジン':['中','#9aa3ad','機'],'座席':['中','#5bb6a7','席'],'車体':['大','#df5a5a','体'],'機体':['大','#68a9df','機体'],'車両ボディ':['大','#e06c62','車両'],
- 'フレーム':['中','#7acb78','枠'],'ハンドル':['小','#d8d8d8','操'],'ペダル':['小','#d5c873','ペ'],'サドル':['小','#6b4638','サ'],'主翼':['大','#9fc8e8','翼'],'尾翼':['中','#77acd5','尾'],
- '操縦席':['中','#68c5c8','席'],'メインローター':['大','#aab5c0','主R'],'テールローター':['中','#aab5c0','尾R'],'着陸脚':['中','#7f8992','脚'],'台車':['大','#694b38','台'],
- 'モーター':['中','#d8a53c','M'],'運転席':['中','#517da8','運'],'連結器':['小','#777','連'],'ドーナツ':['小','#ff72b6','🍩'],'クッキー':['小','#b9793d','🍪'],'フライパン':['中','#444','鍋'],
- 'ソファ':['大','#9e5cc0','ソ'],'段ボール':['中','#b98955','段'],'扇風機':['中','#80d4dd','扇'],'スキー板':['大','#e65e83','板'],'竹とんぼ':['小','#80bd5c','竹'],
- 'ショッピングカート':['大','#8d9ba5','カ'],'スプーン':['小','#ddd','匙'],'植木鉢':['中','#b76f40','鉢'],'掃除機':['大','#ac54cc','掃'],'ゲームコントローラー':['小','#5d69d5','🎮'],'冷蔵庫':['大','#e6f5f4','冷']
-};
-export const SIZE={小:{r:9,time:.15},中:{r:13,time:.5},大:{r:18,time:1.2}};
-export const VEHICLE_ORDER=['car','bicycle','plane','helicopter','train'];
-export const slotList=k=>Object.entries(VEHICLES[k].slots).flatMap(([name,n])=>Array(n).fill(name));
-export function meta(name){const m=ITEM_META[name]||['中','#b0a2a0',name.slice(0,2)];return {size:m[0],color:m[1],label:m[2]}}
+export const WORLD = { width: 1200, height: 720, actorRadius: 24, roundSeconds: 90 };
+
+export const ITEM_SPAWN_CONFIG = Object.freeze({
+  initialMin: 36, initialMax: 44, defaultInitial: 40, minNearPlayer: 4, minNearNpc: 4,
+  minItemDistance: 28, actorSafeDistance: 100, respawnDelay: 5, maxPositionAttempts: 100,
+});
+
+export const NPC_DIFFICULTY = Object.freeze({
+  easy: { label: 'EASY', caption: '初心者向け', speed: 190, thinkMin: .45, thinkMax: .75, sightRange: 420, mistakeRate: .28, targetNoise: 140, buildAt: 11, stuckTime: .75, avoidance: .55 },
+  normal: { label: 'NORMAL', caption: '標準', speed: 245, thinkMin: .18, thinkMax: .35, sightRange: 680, mistakeRate: .10, targetNoise: 55, buildAt: 9, stuckTime: .60, avoidance: .78 },
+  strong: { label: 'STRONG', caption: '手強い', speed: 285, thinkMin: .07, thinkMax: .16, sightRange: 1200, mistakeRate: .02, targetNoise: 12, buildAt: 7, stuckTime: .45, avoidance: .94 },
+});
+
+export const BLUEPRINTS = Object.freeze({
+  car: { name: '自動車', parts: ['タイヤ','タイヤ','エンジン','座席','ハンドル','車体'] },
+  bicycle: { name: '自転車', parts: ['車輪','車輪','サドル','ペダル','ハンドル','フレーム'] },
+  airplane: { name: '飛行機', parts: ['機体','主翼','尾翼','操縦席','エンジン'] },
+  helicopter: { name: 'ヘリコプター', parts: ['機体','メインローター','テールローター','着陸脚','操縦席','エンジン'] },
+  train: { name: '電車', parts: ['車両ボディ','台車','台車','運転席','モーター','連結器'] },
+});
+
+export const SUBSTITUTE_MAP = Object.freeze({
+  'ドーナツ':'タイヤ','クッキー':'車輪','フライパン':'ハンドル','ソファ':'座席','段ボール':'車体',
+  '扇風機':'メインローター','スキー板':'着陸脚','竹とんぼ':'テールローター','ショッピングカート':'台車',
+  'スプーン':'主翼','植木鉢':'操縦席','掃除機':'エンジン','ゲームコントローラー':'運転席','冷蔵庫':'車両ボディ',
+});
+
+export const REGULAR_ITEMS = [...new Set(Object.values(BLUEPRINTS).flatMap(v => v.parts))];
+export const SUBSTITUTE_ITEMS = Object.keys(SUBSTITUTE_MAP);
+export const JUNK_ITEMS = ['長靴','バケツ','枕','傘','本','ぬいぐるみ','やかん','テレビ','トイレットペーパー','サッカーボール'];
+export const ALL_ITEM_NAMES = [...REGULAR_ITEMS, ...SUBSTITUTE_ITEMS, ...JUNK_ITEMS];
+
+export const OBSTACLES = [
+  {x:360,y:165,w:120,h:58},{x:720,y:130,w:150,h:62},{x:540,y:360,w:125,h:100},
+  {x:185,y:470,w:130,h:60},{x:875,y:480,w:145,h:65},
+];
+
+export const CATEGORY = name => REGULAR_ITEMS.includes(name) ? 'regular' : SUBSTITUTE_ITEMS.includes(name) ? 'substitute' : 'junk';

@@ -1,7 +1,0 @@
-{
-  "name": "garakuta-roomba-builders",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": { "dev": "vite", "test": "node --test src/tests.js", "build": "vite build" },
-  "devDependencies": { "vite": "^7.0.0" }
-}
